@@ -1,0 +1,230 @@
+I"�Y<p>今天又是自闭的一天，不过今天终于有了签到题，体验比前两天好了不少，并从数论题上学到了一些东西。</p>
+<blockquote>
+  <p>顺便每个题把老师的一句话题解贴上了</p>
+</blockquote>
+
+<h2 id="a-二十四点">A 二十四点*</h2>
+
+<p>搜+打表，370个无解集合。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="b-集合">B 集合</h2>
+
+<p>分类讨论，反射，二分求出入射角等于反射角的值，<strong>O(Tlogn)</strong></p>
+
+<h2 id="c-小游戏">C 小游戏</h2>
+
+<p><strong>DP,O(nlogn)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="d-精简改良">D 精简改良</h2>
+
+<p>状压 <strong>DP,O(3^nn^2)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="e-最大独立集">E 最大独立集</h2>
+
+<p>贪心， <strong>O(n)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="f-小清新数论">F 小清新数论*</h2>
+
+<blockquote>
+  <p>搞完签到题后一直在搞这一道题，但是可惜，最后还是没能做出来，但是做了一下午没做出来反而是我今天最大的收获，下面就写写我下午做这道题的经过吧。</p>
+</blockquote>
+
+<p>这道题乍一看莫比乌斯函数就被吓了一跳，但是为了克服对数论的恐惧，只能硬着头皮上，头铁了一下午，总算是对莫比乌斯函数有了些了解。</p>
+
+<p>先说说我的思路，一开始我是认为这道题跟莫比乌斯反演有很大关系，虽然现在看看确实如此，但是我最终做出来的时候，并没有用到莫比乌斯反演。一开始去看了很多莫比乌斯反演的博客，尝试性得将公式化简了一下，但是没有成功。不过，这为我后来的化简提供了一些思路。</p>
+
+<p>首先，由枚举 <strong>i , j</strong> 改为枚举 <strong>d</strong> 。
+<br /></p>
+
+\[\sum_{i=1}^{n}{\sum_{j=1}^{n}{\mu(\gcd(i,j))}}=\sum_{d=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^{n}{\mu(d)[\gcd(i,j)=d]}\]
+
+<p><br />
+后面的公式又可以写成
+<br /></p>
+
+\[\sum_{d=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor}{\mu(d)[\gcd(i,j)=1]}=
+\sum_{d=1}^{n}{\mu(d)}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor}[\gcd(i,j)=1]\]
+
+<p><br />
+其实到这里我就不会做了，因为我只找到了求 <strong>μ(n)</strong> 的板子，后面的完全无法下手，所以我晚上要来了庄学姐的代码，发现他用了下面这个公式就可以 <strong>O(n)</strong> 求出结果（我总觉得他是感性认知出来的，因为我就是靠感性证明的）。
+<br /></p>
+
+\[\sum_{i=1}^{n}\sum_{j=1}^{n}[\gcd(i,j)=1]=2\sum_{i=1}^{n}\sum_{j=1}^{n}\phi(j)+1  (\phi(1)=0)\tag1\]
+
+<p><br />
+为什么会这样呢，我用了一个感性认知的方法来证明
+我们以 <strong>n=5</strong> 的 <strong>gcd(i,j)</strong> 为例子
+<br /></p>
+
+\[\begin{matrix}
+0&amp;1&amp;2&amp;3&amp;4&amp;5\\
+1&amp;1&amp;1&amp;1&amp;1&amp;1\\
+2&amp;1&amp;2&amp;1&amp;2&amp;1\\
+3&amp;1&amp;1&amp;3&amp;1&amp;1\\
+4&amp;1&amp;2&amp;1&amp;4&amp;1\\
+5&amp;1&amp;1&amp;1&amp;1&amp;5\\
+\end{matrix}\]
+
+<p><br />
+显然它是关于从 <strong>(1,1)</strong> 到 <strong>(5,5)</strong> 的直线对称的，如果只考虑半边，第 <strong>i</strong> 行中 <strong>gcd</strong> 的值为 1 的个数为 <strong>φ(i)</strong> ，特殊的，令 <strong>φ(1)=0</strong> ，则 <strong>φ(1)+φ(2)+…+φ(5)</strong> 就是其中一个半边中的 <strong>gcd</strong> 为 1 的数的个数，乘上二再加对称轴上的一个 1 ，就是 <strong>(1)</strong>式。</p>
+
+<p>最后，靠着学长网上找的线性筛的板子，总算是做出了这道题。</p>
+
+<blockquote>
+  <p>怎么说呢，这道题还是没有真正明白，不管是杜教筛还是莫比乌斯反演都没有学会，之后我会再更新关于他们的博客，并把链接贴到这里。</p>
+</blockquote>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">ll</span> <span class="n">N</span><span class="o">=</span><span class="mf">1e7</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">998244353</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">phi</span><span class="p">[</span><span class="n">N</span><span class="o">+</span><span class="mi">10</span><span class="p">];</span>
+<span class="kt">bool</span> <span class="n">vis</span><span class="p">[</span><span class="n">N</span><span class="o">+</span><span class="mi">10</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">prime</span><span class="p">[</span><span class="n">N</span><span class="o">+</span><span class="mi">10</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">miu</span><span class="p">[</span><span class="n">N</span><span class="o">+</span><span class="mi">10</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">tot</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
+    <span class="n">miu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">tot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">vis</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">prime</span><span class="p">[</span><span class="n">tot</span> <span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">miu</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">tot</span><span class="p">;</span> <span class="n">j</span> <span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">N</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+            <span class="n">vis</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">miu</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+                <span class="n">phi</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">phi</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">phi</span><span class="p">[</span><span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]];</span>
+                <span class="n">miu</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">prime</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">miu</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+    <span class="n">init</span><span class="p">();</span>
+    <span class="n">ll</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">N</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">%</span><span class="n">M</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">h</span><span class="o">=</span><span class="n">n</span><span class="o">/</span><span class="n">i</span><span class="p">;</span>
+        <span class="n">ans</span><span class="o">+=</span><span class="p">(</span><span class="n">ll</span><span class="p">)(</span><span class="mi">10</span><span class="o">*</span><span class="n">M</span><span class="o">+</span><span class="n">miu</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">phi</span><span class="p">[</span><span class="n">h</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">M</span><span class="p">);</span><span class="c1">//因为miu有负数，所以要加10*M</span>
+        <span class="n">ans</span><span class="o">%=</span><span class="n">M</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="o">%</span><span class="n">M</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="g-排列">G 排列</h2>
+
+<p>签到题，能读懂题意就能做出来。</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cmath&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">100005</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span> <span class="n">pa</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">ans</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">pa</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">minn</span><span class="o">=</span><span class="mf">1e9</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">minn</span><span class="o">&gt;</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">minn</span><span class="o">=</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">minn</span><span class="p">)</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">minn</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">pre</span><span class="o">=</span><span class="n">pa</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">h</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">pre</span><span class="p">){</span>
+            <span class="n">h</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">pre</span><span class="o">=</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">h</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">p</span><span class="o">=</span><span class="n">pa</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">p</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">p1</span><span class="o">=</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">p</span><span class="p">){</span>
+            <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">p</span><span class="o">=</span><span class="n">pa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">p1</span><span class="p">;</span>
+        <span class="n">p1</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="sc">' '</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="h-涂鸦">H 涂鸦*</h2>
+
+<p>贪心， <strong>O(n)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="i-石头剪刀布">I 石头剪刀布</h2>
+
+<p>并查集， <strong>O(na(n))</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="j-子序列">J 子序列</h2>
+
+<p>矩阵乘法， <strong>O(m^3n)</strong>， <strong>m</strong>是字符集大小</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+:ET

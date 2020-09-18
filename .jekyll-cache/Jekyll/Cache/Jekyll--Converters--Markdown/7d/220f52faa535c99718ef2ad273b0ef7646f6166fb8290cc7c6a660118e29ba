@@ -1,0 +1,101 @@
+I"N<blockquote>
+  <p>今夜爆肝
+<del>md三蹦子还没开始肝</del></p>
+</blockquote>
+
+<p><br /></p>
+
+<p>KMP是我一直不想学的东西，这个算法是基于匹配串的特殊性质才能实现的，所以之前有很多地方难以理解。前段时间在秦皇岛又对KMP复习了一下，发现有些地方想通了，今天多校又碰到了一个字符串，自闭之余，还是要接着补题。</p>
+
+<p>Next函数是基于匹配串求出的，Next[ i ]表示“a中以i为结尾的非前缀字串”与“a的前缀”能够匹配的最大长度。</p>
+
+<p>后面的Next可以由前面的Next快速求出，匹配也是同样的思路，直接感性认知吧。。。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">Next</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">void</span> <span class="nf">cacl_Next</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">a</span><span class="p">){</span>
+    <span class="n">Next</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="n">j</span><span class="o">=</span><span class="n">Next</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">Next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">f</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">kmp</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="n">b</span><span class="p">){</span>
+    <span class="n">cacl_Next</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="kt">int</span> <span class="n">lena</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">lenb</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">lenb</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="n">lenb</span><span class="o">||</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span><span class="n">j</span><span class="o">=</span><span class="n">Next</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">;</span><span class="k">if</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">lena</span><span class="p">)</span><span class="n">ans</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">kmp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /><br /></p>
+<h2 id="exkmp">EXKMP</h2>
+
+<p>但是杭电这个问题需要用exkmp来解决。exkmp的功能是计算s串的每一个后缀与t串的最长公共前缀，用到的两个数组Next和extend，他们的求解思路都是一样的，extend是s串与t串的答案，Next是t串与自身匹配的答案，此题只需要算出Next数组就可以了。</p>
+
+<p>这个算法对我来说比较抽象，内容已经基本理解了，但是还是感觉理解不够透彻，所以把我看的博客放在下面，以便加深理解。</p>
+
+<p><a href="[https://www.cnblogs.com/zjp-shadow/p/10139818.html](https://www.cnblogs.com/zjp-shadow/p/10139818.html)">链接</a></p>
+
+<h3 id="hdu-6629">HDU-6629</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">Next</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">void</span> <span class="nf">cacl_exNext</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">T</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">T</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">pos</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="o">&lt;=</span><span class="n">len</span><span class="o">&amp;&amp;</span><span class="n">T</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">==</span><span class="n">T</span><span class="p">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="n">p</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">Next</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">len</span><span class="p">,</span><span class="n">Next</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">len</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">l</span><span class="o">=</span><span class="n">Next</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">&lt;</span><span class="n">p</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="n">Next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">l</span><span class="p">;</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">len</span><span class="o">&amp;&amp;</span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">])</span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">Next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">extend</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">void</span> <span class="nf">exKMP</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">S</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="n">T</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">lenS</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">S</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">lenT</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">T</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">pos</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">p</span><span class="o">&lt;=</span><span class="n">lenT</span><span class="o">&amp;&amp;</span><span class="n">S</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">==</span><span class="n">T</span><span class="p">[</span><span class="n">p</span><span class="p">])</span><span class="n">p</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">extend</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=--</span><span class="n">p</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">lenS</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">l</span><span class="o">=</span><span class="n">Next</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">&lt;</span><span class="n">p</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="n">extend</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">l</span><span class="p">;</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">lenS</span><span class="o">&amp;&amp;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">lenT</span><span class="o">&amp;&amp;</span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">])</span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">extend</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">t</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+        <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">cacl_exNext</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">ll</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">ans</span><span class="o">+=</span><span class="n">min</span><span class="p">(</span><span class="n">Next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET

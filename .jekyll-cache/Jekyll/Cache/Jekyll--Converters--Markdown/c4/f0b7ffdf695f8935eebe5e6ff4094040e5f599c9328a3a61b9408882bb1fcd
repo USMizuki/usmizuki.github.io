@@ -1,0 +1,102 @@
+I"M<p>总算是撑到了最后一天，本以为题今天会好点，结果又自闭了。。。。。</p>
+
+<h2 id="a-aqours">A Aqours</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="b-玖凛两开花">B 玖凛两开花</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="c-御坂妹妹">C 御坂妹妹</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="d-吉良吉影的奇妙计划">D 吉良吉影的奇妙计划</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="e-souls-like-game">E Souls-like Game</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="f-地球上最漫长的一天">F 地球上最漫长的一天</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="g-穗乃果的考试">G 穗乃果的考试</h2>
+
+<p>这就是个傻*******题啊，艹艹艹艹艹艹</p>
+
+<p>这个公式
+<br /></p>
+
+\[\sum_{i=0}^{nm}i*f(i)\]
+
+<p><br />
+就是这个公式，一开始我以为算出每个 <strong>f(i)</strong> 就好，结果就没跳出这个坑，啊啊啊啊啊啊啊！！！！！！</p>
+
+<p>后来仔细想一下，<strong>f(i)</strong> 是有 <strong>i</strong> 个1的子矩阵的个数，所以 <strong>i f(i)</strong> 
+就是每个子矩阵的每个 1 都对答案有 1 的贡献，所以每个 1 每在一个子矩阵里，答案就加一。</p>
+
+<p>所以最后就算每个 1 在几个子矩阵里，然后相加就好了。</p>
+
+<p>至于 1 在几个子矩阵里怎么算。。。用力想一下就好了啊，总公式就是
+ <strong>i*(n-i+1)*j*(m-j+1)</strong> 。</p>
+
+<blockquote>
+  <p>还好多想了想，不然就爆零了</p>
+</blockquote>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">2005</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">998244353</span><span class="p">;</span>
+<span class="c1">//int a[N];</span>
+<span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">ll</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">ll</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="sc">'1'</span><span class="p">){</span>
+                <span class="n">ans</span><span class="o">+=</span><span class="p">(</span><span class="n">ll</span><span class="p">)(</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">M</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">M</span><span class="p">);</span>
+                <span class="n">ans</span><span class="o">%=</span><span class="n">M</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="o">%</span><span class="n">M</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="h-二人的白皇">H 二人的白皇</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="i-岸边露伴的人生经验">I 岸边露伴的人生经验</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="j-去音乐会">J 去音乐会</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+:ET

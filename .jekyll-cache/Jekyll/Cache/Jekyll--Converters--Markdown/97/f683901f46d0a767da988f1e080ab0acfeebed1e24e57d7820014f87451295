@@ -1,0 +1,56 @@
+I"�(<blockquote>
+  <p>大数乘法板子题，但是这个鬼畜的oj让我一脸懵逼，只能写其中一个函数，返回一个字符串，输出的字符串才是最终答案。。。</p>
+
+  <p>所以最后答案数组还要转换成string类，我直接一个一个相等还会RE。。。只能先转换成字符数组，再转换成string，鬼畜得一匹</p>
+</blockquote>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">string</span> <span class="n">multiply</span><span class="p">(</span><span class="n">string</span> <span class="n">num1</span><span class="p">,</span> <span class="n">string</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">110</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="mi">110</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="mi">220</span><span class="p">];</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">len1</span><span class="o">=</span><span class="n">num1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">len2</span><span class="o">=</span><span class="n">num2</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">len1</span><span class="o">-</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">num1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="sc">'0'</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len2</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">b</span><span class="p">[</span><span class="n">len2</span><span class="o">-</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">num2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="sc">'0'</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">len1</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">num1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="sc">'0'</span><span class="p">){</span>
+            <span class="n">string</span> <span class="n">ans</span><span class="p">;</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">'0'</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">len2</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">num2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="sc">'0'</span><span class="p">){</span>
+            <span class="n">string</span> <span class="n">ans</span><span class="p">;</span><span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">'0'</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">len1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">len2</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="n">m</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+=</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">%=</span><span class="mi">10</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">){</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">%=</span><span class="mi">10</span><span class="p">;</span>
+            <span class="n">m</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">220</span><span class="p">];</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="sc">'0'</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">ans</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+:ET

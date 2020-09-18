@@ -1,0 +1,93 @@
+I"
+,<blockquote>
+  <p>本来就一道自闭题的，但是第二道莫名其妙把我写自闭了， <del>明明本地是对的，为什么交上去是错的</del> 明明样例本地过了，为什么交上去过不了，而且我按照原来的代码重写了一边，竟然又可以过了。。。。更恐怖的是，我不是第一次遇到这种事情了。。。。。。上次一摸一样的代码运行出不一样的结果的原因我到现在也不知道emmmmm</p>
+</blockquote>
+
+<p>不过这次主要自闭的还是 <strong>HDU-6231</strong> 。</p>
+
+<p>题意是这样的</p>
+
+<p>给你一个数组 <strong>A</strong>，让你将长度大于 <strong>k</strong> 的 <strong>A</strong> 数组的所有子区间中的第k大数找出来放入数组 <strong>B</strong> 中，然后输出其中的第 <strong>m</strong> 大数。</p>
+
+<p>这个题一开始思考方向就是错的，数据结构显然不行，因为只有线段树可用但是无法合并，其实仔细算一下就会发现，已知 <strong>A</strong> 数组范围是 <strong>1e5</strong> 的，如果将 <strong>k=1</strong> 时的 <strong>B</strong> 数组全算出来，那么 <strong>B</strong> 数组的大小将会达到近 <strong>1e10</strong> ，也就是说，想靠什么方法将 <strong>B</strong> 求出来的方法是一定不行的emmmmmm，这么长时间没发现我也是菜。</p>
+
+<p>然后就是算法的问题了，其实不难发现，我们最终要的答案就只是<strong>B</strong>中的第<strong>m</strong>大数，所以我们没必要将 <strong>B</strong> 所有的都算出来，算出比大于等于答案的所有的数就可以了。</p>
+
+<p>但是这也不容易，还有一个不难发现的地方是，我们并不确定答案的值，而且，存在可以确定一个数一定不是答案的条件：如果大于等于 <strong>x</strong> 的所有数做第 <strong>k</strong> 大数的子区间个数小于 <strong>m</strong> ，<strong>x</strong> 就一定不可能是答案，而且，比 <strong>x</strong> 大的数也一定不是答案。</p>
+
+<p>这样，我们就可以写出 <strong>check</strong> 函数，然后每次去掉一半的区间，这不就是二分吗。。。。</p>
+
+<p>然后就是最大的难点，如何写 <strong>check</strong> 函数来找出子区间的个数，这就用到了尺取法。</p>
+
+<p>这需要用到两个指针，我们用 <strong>l , r</strong> 来表示，开始 <strong>l , r</strong> 都指向开头，然后 <strong>r</strong> 开始向后扫，并用 <strong>num</strong> 记录 <strong>[ l , r ]</strong> 区间中大于等于 <strong>x</strong> 的元素的个数，当个数等于 <strong>k</strong> 后，则 <strong>[ l , r ~ n ]</strong> 的所有区间的第 <strong>k</strong> 大数都大于等于 <strong>x</strong> ，然后把这些区间的个数加到 <strong>sum</strong> 上。下面 <strong>r</strong> 再向后扫， <strong>r</strong> 每向后扫一位都会使区间个数增加，直到扫到第一个大于等于 <strong>x</strong> 的数，然后把这个数去掉，即 <strong>num</strong> 减一。</p>
+
+<p>这样扫到最后，得到的 <strong>sum</strong> 就是所需要的子区间的个数。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mf">1e5</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">998244353</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">check</span><span class="p">(</span><span class="n">ll</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ll</span> <span class="n">num</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">ll</span> <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">r</span><span class="o">&lt;=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">num</span><span class="o">&lt;</span><span class="n">k</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">x</span><span class="p">){</span>
+                <span class="n">num</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">r</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">sum</span><span class="o">+=</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">x</span><span class="p">){</span>
+                <span class="n">num</span><span class="o">--</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">l</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&gt;=</span><span class="n">m</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">t</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+        <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">k</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="n">n</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">mid</span><span class="p">;</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">b</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">ll</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">l</span><span class="o">&lt;=</span><span class="n">r</span><span class="p">){</span>
+            <span class="n">mid</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">);</span>
+            <span class="n">ll</span> <span class="n">x</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="n">mid</span><span class="p">];</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">x</span><span class="p">)){</span>
+                <span class="n">ans</span><span class="o">=</span><span class="n">x</span><span class="p">;</span>
+                <span class="n">l</span><span class="o">=</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="n">r</span><span class="o">=</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>真的惨啊，二分还是不熟练，当然也可能是因为昨天喝了三杯咖啡的原因，晚上失眠，上午又去打球，中午又没有睡觉，下午头疼的一匹，精神状态也有些不正常。</p>
+
+  <p>不过主要原因还是菜啊。。。。。</p>
+</blockquote>
+:ET

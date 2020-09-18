@@ -1,0 +1,157 @@
+I"�E<blockquote>
+  <p>写在前面</p>
+
+  <p>自闭了吗？</p>
+
+  <p>自闭了</p>
+
+  <p>掉分了吗</p>
+
+  <p>掉分了</p>
+
+  <p>就算自闭到怀疑人生，还是要补题啊</p>
+</blockquote>
+
+<p>艹艹艹艹艹艹艹艹艹艹艹艹</p>
+
+<p>我真的怀疑人生了啊！！！！！！！！！！！！！</p>
+
+<h2 id="a-superhero-transformation">A Superhero Transformation</h2>
+
+<p>没什么好说的</p>
+
+<p>上代码</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">1005</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">bool</span> <span class="nf">check</span><span class="p">(</span><span class="kt">char</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="sc">'a'</span><span class="o">||</span><span class="n">x</span><span class="o">==</span><span class="sc">'e'</span><span class="o">||</span><span class="n">x</span><span class="o">==</span><span class="sc">'i'</span><span class="o">||</span><span class="n">x</span><span class="o">==</span><span class="sc">'o'</span><span class="o">||</span><span class="n">x</span><span class="o">==</span><span class="sc">'u'</span><span class="p">)</span><span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s%s"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">!=</span><span class="n">strlen</span><span class="p">(</span><span class="n">b</span><span class="p">)){</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"No"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">strlen</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">&amp;&amp;!</span><span class="n">check</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])){</span>
+            <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"No"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">&amp;&amp;!</span><span class="n">check</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])){</span>
+            <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"No"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Yes"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="b-average-superhero-gang-power">B Average Superhero Gang Power</h2>
+
+<p>哎，又被数据坑了，测试数据是无法涵盖所有情况，很多情况需要通过经验判断，这个题如果n大于m，去掉前面所有的绝对是最好的选择，这个题会很简单</p>
+
+<p>但是。。。。</p>
+
+<p>n还有可能小于m啊。。。。。</p>
+
+<p>然后就是套路了，先认为一个都不删，然后再从小到大一个个删去，操作次数是 <strong>n-1</strong> 和 <strong>m</strong> 之间的最小值，然后每次删去总共增加的值为 <strong>m-i</strong> ，但是要小于等于 <strong>(n-i)*k</strong></p>
+
+<p>一开始没能发现的是，删去的时候直接把加上的值加到总和上就可以，不许要在意加到了哪个值上，所以。。。。</p>
+
+<p>一开始虽然想到了正解但是没有做出来，然后又傻逼得没能想到 <strong>n&gt;m</strong> ，所以这次杯具完全是我自己的锅，我会认真检讨</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mf">1e6</span><span class="o">+</span><span class="mi">1000</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ll</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">k</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="p">;</span>
+    <span class="n">ll</span> <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">sum</span><span class="o">+=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">ll</span> <span class="n">s</span><span class="o">=</span><span class="n">min</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">k</span><span class="p">,</span><span class="n">m</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">ans</span><span class="o">=</span><span class="p">(</span><span class="kt">double</span><span class="p">)((</span><span class="kt">double</span><span class="p">)(</span><span class="n">sum</span><span class="o">+</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">n</span><span class="p">);</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">ll</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">min</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ll</span> <span class="n">h</span><span class="o">=</span><span class="n">min</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="n">i</span><span class="p">,(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">k</span><span class="p">);</span>
+        <span class="n">sum</span><span class="o">-=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">ans</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,(</span><span class="kt">double</span><span class="p">)(</span><span class="n">sum</span><span class="o">+</span><span class="n">h</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.20lf</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">ans</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="c-creative-snap">C Creative Snap</h2>
+
+<p>这个题学长说是分治，但是我不知道分治具体是什么东西。。。。</p>
+
+<p>我一开始是想直接递归深搜就好，虽然是\(O({2}^{n})\)复杂度，但是其实可以剪枝，没有英雄在的区间直接消掉就好，就不用继续递归了，但是如何确定区间里有几个英雄对我来说是个难点，原本是想二分来查。。。</p>
+
+<p>但是。。。</p>
+
+<p>心态被B题搞崩了。。。</p>
+
+<p>还好找到了跟我思路差不多的代码，我是真的忘了还有lower_bound和upper_bound了。。。。</p>
+
+<p>先把数组排序，想找 <strong>( l , r )</strong> 中英雄的个数，因为 <strong>l</strong> 和 <strong>r</strong> 都是2的正整数幂，所以找第一个大于等于 <strong>l</strong> 的数的位置，和第一个大于 <strong>r</strong> 的数的位置，相减就是在区间里的英雄的个数</p>
+
+<p>然后递归搜索就行了，每次比较，取拆或不拆中较小的那个</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;bits/stdc++.h&gt;
+#define ll long long
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mf">1e5</span><span class="o">+</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">;</span>
+<span class="n">ll</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ll</span> <span class="n">t</span><span class="o">=</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">-</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">A</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">==</span><span class="n">r</span><span class="p">)</span><span class="k">return</span> <span class="n">t</span><span class="o">*</span><span class="n">B</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">B</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">dfs</span><span class="p">(</span><span class="n">l</span><span class="p">,(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">dfs</span><span class="p">(((</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">r</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">k</span><span class="o">&gt;&gt;</span><span class="n">A</span><span class="o">&gt;&gt;</span><span class="n">B</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">ll</span> <span class="n">ans</span><span class="o">=</span><span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="p">);</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="d-destroy-the-colony">D Destroy the Colony</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<h2 id="e-tree">E Tree</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unsolved
+</code></pre></div></div>
+
+<blockquote>
+  <p>过年啦，过年了</p>
+
+  <p>woc又过年。。。。</p>
+
+  <p>过年好烦。。。。</p>
+</blockquote>
+:ET
