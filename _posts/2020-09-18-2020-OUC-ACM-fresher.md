@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "2020 OUC ACM fresher"
-date:   2020-07-24
+date:   2020-09-18
 desc: ""
 keywords: "fresher"
 categories: [Acm,Life]
